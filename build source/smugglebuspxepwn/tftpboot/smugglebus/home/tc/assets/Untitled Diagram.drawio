@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-10-17T19:00:13.533Z" agent="5.0 (X11)" etag="PiwSpM1og5053u4z-pou" version="13.8.0" type="github">
+<mxfile host="app.diagrams.net" modified="2020-10-17T19:02:33.596Z" agent="5.0 (X11)" etag="GPjGsi5qLLi-jTI3ZxSj" version="13.8.0" type="github">
   <diagram id="9BNLUhRl49KtjUEpaJ9v" name="Page-1">
-    <mxGraphModel dx="5571" dy="2109" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3136" dy="654" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -148,20 +148,38 @@
         <mxCell id="SLb6tqs1ZrY8k5B9FdxR-39" value="&lt;b&gt;remove_system_shell&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="410" y="1310" width="140" height="50" as="geometry" />
         </mxCell>
+        <mxCell id="SLb6tqs1ZrY8k5B9FdxR-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SLb6tqs1ZrY8k5B9FdxR-40" target="SLb6tqs1ZrY8k5B9FdxR-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="SLb6tqs1ZrY8k5B9FdxR-40" value="&lt;div&gt;&lt;b&gt;ceck_for_windrives(&lt;/b&gt;list: raw_drives&lt;b&gt;)&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Prints out a list of connected target drives. Drives can be selected by typeing the number of the order they are printed in. ie. selecting drive 0 will select and target the first drive that was printed out.&lt;br&gt;&lt;b&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="80" y="1480" width="240" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="SLb6tqs1ZrY8k5B9FdxR-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SLb6tqs1ZrY8k5B9FdxR-41" target="SLb6tqs1ZrY8k5B9FdxR-51">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="SLb6tqs1ZrY8k5B9FdxR-41" value="&lt;div&gt;&lt;b&gt;ceck_for_windrives(&lt;/b&gt;list: raw_drives&lt;b&gt;)&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Prints out a list of connected target drives. Drives can be selected by typeing the number of the order they are printed in. ie. selecting drive 0 will select and target the first drive that was printed out.&lt;br&gt;&lt;b&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="360" y="1480" width="240" height="110" as="geometry" />
         </mxCell>
+        <mxCell id="SLb6tqs1ZrY8k5B9FdxR-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SLb6tqs1ZrY8k5B9FdxR-42" target="SLb6tqs1ZrY8k5B9FdxR-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="SLb6tqs1ZrY8k5B9FdxR-42" value="&lt;div&gt;&lt;b&gt;ceck_for_windrives(&lt;/b&gt;list: raw_drives&lt;b&gt;)&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Prints out a list of connected target drives. Drives can be selected by typeing the number of the order they are printed in. ie. selecting drive 0 will select and target the first drive that was printed out.&lt;br&gt;&lt;b&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="-600" y="1480" width="240" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="SLb6tqs1ZrY8k5B9FdxR-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SLb6tqs1ZrY8k5B9FdxR-43" target="SLb6tqs1ZrY8k5B9FdxR-49">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="SLb6tqs1ZrY8k5B9FdxR-43" value="&lt;div&gt;&lt;b&gt;ceck_for_windrives(&lt;/b&gt;list: raw_drives&lt;b&gt;)&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Prints out a list of connected target drives. Drives can be selected by typeing the number of the order they are printed in. ie. selecting drive 0 will select and target the first drive that was printed out.&lt;br&gt;&lt;b&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="-200" y="1480" width="240" height="110" as="geometry" />
         </mxCell>
+        <mxCell id="SLb6tqs1ZrY8k5B9FdxR-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SLb6tqs1ZrY8k5B9FdxR-44" target="SLb6tqs1ZrY8k5B9FdxR-46">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="SLb6tqs1ZrY8k5B9FdxR-44" value="&lt;div&gt;&lt;b&gt;ceck_for_windrives(&lt;/b&gt;list: raw_drives&lt;b&gt;)&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Prints out a list of connected target drives. Drives can be selected by typeing the number of the order they are printed in. ie. selecting drive 0 will select and target the first drive that was printed out.&lt;br&gt;&lt;b&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="-1160" y="1480" width="240" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="SLb6tqs1ZrY8k5B9FdxR-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SLb6tqs1ZrY8k5B9FdxR-45" target="SLb6tqs1ZrY8k5B9FdxR-47">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="SLb6tqs1ZrY8k5B9FdxR-45" value="&lt;div&gt;&lt;b&gt;ceck_for_windrives(&lt;/b&gt;list: raw_drives&lt;b&gt;)&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Prints out a list of connected target drives. Drives can be selected by typeing the number of the order they are printed in. ie. selecting drive 0 will select and target the first drive that was printed out.&lt;br&gt;&lt;b&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="-880" y="1480" width="240" height="110" as="geometry" />

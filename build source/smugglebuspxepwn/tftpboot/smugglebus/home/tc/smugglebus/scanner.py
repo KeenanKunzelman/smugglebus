@@ -1,4 +1,4 @@
-import subprocess
+import sys, subprocess, argparse, time, shutil, os, datetime
 
 from drive import Drive
 
@@ -89,3 +89,81 @@ class Scanner:
         print('\n     *******************************************************'
                     '***************     ',
                     end ='\n')
+    @staticmethod
+    def grab_drives():
+        proc = subprocess.Popen('sudo blkid', stdout=subprocess.PIPE, 
+                shell=True)
+        (drives, err) = proc.communicate()
+        drives = drives.decode('utf-8').split('\n')
+        return drives
+    @staticmethod
+    def locate_winfs(drives):
+        win_drives = []
+        for drive in drives:
+            if 'ntfs' in drive:
+                win_drives.append(drive)
+        return win_drives
+
+    @staticmethod
+    def store_drives(raw_drives):
+        # takes as input raw_drives from the blkid command
+        # Returns a list of Drive objects
+
+        connected_drives = []
+        for i in range(len(raw_drives)):
+            temp_drive = Drive()
+            temp_raw_drive = raw_drives[i].split()
+            for attribute in temp_raw_drive:
+                if '/dev' in attribute:         
+                    attribute = list(attribute)
+                    attribute.pop()
+                    attribute = ''.join(attribute)
+                    temp_drive.set_source(attribute)     
+                elif 'TYPE' in attribute:
+                    temp_drive.set_fs(attribute)
+            connected_drives.append(temp_drive)
+        return connected_drives
+
+    @staticmethod
+    def mount_drive(drive):
+        # accepts a path to a drive that you would like to mount
+        # mounts the target drive to /mna/windows
+        # if /windows does not exist, smugglebus will try to make it for you
+        try:
+            os.mkdir('/mnt/windows')
+            print('/mnt/windows has been created for you, and will'
+                    ' be used as a mounting point')
+        except PermissionError:
+            print('was unable to create mountpoint. Please run '
+                    'hashsnatcher as root.')
+            sys.exit()
+        except FileExistsError:
+            print('/mnt/windows exists, and will be used as a '
+                    'mounting point')
+        pipe = subprocess.Popen('sudo ntfs-3g -o remove_hiberfile {} '
+                '/mnt/windows'.format(drive.get_source()),stdout=subprocess.PIPE, shell=True)
+        time.sleep(1)
+        
+    @staticmethod
+    def check_for_windrives(raw_drives):
+        #looking back this code is actually so trash. Gotta refactor.
+        drive_count = 0
+        raw_win_drives = Scanner.locate_winfs(raw_drives)
+        win_drives = Scanner.store_drives(raw_win_drives)
+        #not the happiest with this code but it works
+        if len(raw_win_drives) < 1:
+            print('no exploitable drives')
+            return False
+        else:
+            print('\nConected drives using the NTFS file system.\n')
+            for drive in raw_win_drives:
+                print('[Drive {}] {}\n'.format(drive_count, drive))
+                drive_count += 1
+            target = input('\n========================================='
+                    '===============\nplease choose a drive to exploit.'
+                    ' Note drives start at 0\n\nDrive ')
+            print('****************************************************'
+                    '*****************************************')
+            print('Targeting: ' + raw_win_drives[int(target)])
+            Scanner.mount_drive(win_drives[int(target)])
+            return True

@@ -14,39 +14,10 @@
 #[X] Abstract Drive / improve it, and then implement 
 
 from scanner import Scanner
+from drive import Drive
 import sys, subprocess, argparse, time, shutil, os, datetime
 
 
-class Drive:
-# Stored data from a raw drive in a more accessible format.
-# set_source sets the path that the drive is located at
-# set_fs stores the file system for the drive
-# get_source returns the path that the drive is located at
-# is_mounted checks to see if the drive is mounted or not
-    # If the drive is mounted 'yes' is returned
-    # If the drive is not mounted 'no' is returned
-    # THIS IS DUMB AS SHIT AND SHOULD BE A BOOLEAN
-
-    def __init__(self):
-        self.source = '' 
-        self.fs = '' 
-    def set_source(self, source):
-        self.source = source
-    def set_fs(self, fs):
-        self.fs = fs
-    def get_source(self):
-        return self.source
-    def get_fs(self):
-        return self.fs
-    def is_mounted(self):
-        proc = subprocess.Popen('sudo mount', 
-                stdout=subprocess.PIPE, shell=True)
-        (mounted_drives, err) = proc.communicate()
-        mounted_drives = mounted_drives.decode('utf-8')     
-        if self.get_source() in mounted_drives:
-            return 'yes'
-        else:
-            return 'no'
 
 
  
@@ -171,6 +142,8 @@ def remove_SYSTEM_shell():
                                         'spoolsv.exe')
     try:
         shutil.copyfile(absolute_spoolsv_bak_path,absolute_spoolsv_path)
+    except FileNotFoundError as e:
+        print(e)
     except e:
         print(e)
 
@@ -221,7 +194,6 @@ def copy_registries():
     subprocess.Popen('sudo umount /mnt/windows', shell=True)
     print('Drive has been unmounted from /mnt/windows')
 
-
 def main():
 
     parser = argparse.ArgumentParser(
@@ -241,26 +213,27 @@ def main():
     drives = Scanner()
     print(drives.pretty_print('all'))
 
-    raw_drives = grab_drives()
+    raw_drives = Scanner.grab_drives()
     # this stores the raw drived as a Drive obj.
-    conected_drives = store_drives(raw_drives)
+    conected_drives = Scanner.store_drives(raw_drives)
     if args.extract_hives:
-        if check_for_windrives(raw_drives):
+        if Scanner.check_for_windrives(raw_drives):
             copy_registries()
     if args.print_drives:
-        pretty_print(conected_drives)
+        drives.pretty_print(conected_drives)
     elif args.sticky_keyz:
-        if check_for_windrives(raw_drives):
+        if Scanner.check_for_windrives(raw_drives):
             get_sticky_shell()
     elif args.remove_sticky_keyz:
-        if check_for_windrives(raw_drives):
+        if Scanner.check_for_windrives(raw_drives):
             revert_sticky_shell()
     elif args.system_shell:
-        if check_for_windrives(raw_drives):
+        if Scanner.check_for_windrives(raw_drives):
             implant_SYSTEM_shell()
     elif args.remove_system_shell:
-        if check_for_windrives(raw_drives):
-            remove_system_shell()
+        if Scanner.check_for_windrives(raw_drives):
+            # remove_system_shell() needs to be fixed
+            print('remove_system_shell not working')
 
 if __name__ == '__main__':
     main()

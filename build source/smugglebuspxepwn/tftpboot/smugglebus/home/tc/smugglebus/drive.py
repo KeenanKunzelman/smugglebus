@@ -2,6 +2,14 @@ import subprocess
 
 
 class Drive:
+# Stored data from a raw drive in a more accessible format.
+# set_source sets the path that the drive is located at
+# set_fs stores the file system for the drive
+# get_source returns the path that the drive is located at
+# is_mounted checks to see if the drive is mounted or not
+    # If the drive is mounted 'yes' is returned
+    # If the drive is not mounted 'no' is returned
+    # THIS IS DUMB AS SHIT AND SHOULD BE A BOOLEAN
     def __init__(self):
         self.source = '' 
         self.fs = '' 

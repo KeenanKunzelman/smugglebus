@@ -7,11 +7,12 @@
 #and exfils the calc.exe program for now.
 
 #TO DO
-#[] Create Implanter class that abstracts shared behaviour between attacks
-#[] Allow Implanter to accept necessary paths for attack.
-#   Can we make an generic cleaner that reverses any implants?
-#[] Create method / mechanism in Implanter for payload/attack choice
+#[]  Create Implanter class that abstracts shared behaviour between attacks
+#[]  Allow Implanter to accept necessary paths for attack.
+#    Can we make an generic cleaner that reverses any implants?
+#[]  Create method / mechanism in Implanter for payload/attack choice
 #[X] Abstract Drive / improve it, and then implement 
+#[X]  Abstract interaction with blkid output / drive storage in a Scanner class
 
 from scanner import Scanner
 from drive import Drive
@@ -199,28 +200,68 @@ def main():
     parser = argparse.ArgumentParser(
             description=('Choose which mode to run program in. No '
             'input lists all the storage devices.'))
+
     group = parser.add_mutually_exclusive_group()
-    group.add_argument('-xh', '--extract_hives', action='store_true')
-    group.add_argument('-pd', '--print_drives', action='store_true')
-    group.add_argument('-sk', '--sticky_keyz', action='store_true')
-    group.add_argument('-rsk', '--remove_sticky_keyz', action='store_true')
-    group.add_argument('-rss', '--remove_system_shell', action='store_true')
-    group.add_argument('-ss', '--system_shell', action='store_true')
+    group.add_argument('-xh', 
+            '--extract_hives', 
+            action='store_true')
+
+    # Maybe in here we can add a nargs field to allow user to input a target 
+    # file sys for pretty print? and just have it default to all if no args are
+    # provided?
+    group.add_argument('-pd', 
+            '--print_drives', 
+            nargs='*', 
+            metavar='target_fs' , 
+            action='store')
+
+    group.add_argument('-sk', 
+            '--sticky_keyz', 
+            action='store_true')
+    group.add_argument('-rsk', 
+            '--remove_sticky_keyz', 
+            action='store_true')
+    group.add_argument('-rss', 
+            '--remove_system_shell', 
+            action='store_true')
+    group.add_argument('-ss', 
+            '--system_shell', 
+            action='store_true')
 
     args = parser.parse_args()
 
-    # this grabs the raw text for the connected drives
-    drives = Scanner()
-    print(drives.pretty_print('all'))
+    # this grabs the raw text for the connected drives and stores it in an
+    # object created from Scanner class. Maybe this should be called a scanner
 
-    raw_drives = Scanner.grab_drives()
-    # this stores the raw drived as a Drive obj.
-    conected_drives = Scanner.store_drives(raw_drives)
+    drives = Scanner()
+    # two examples of using the pretty print function to get all the drives
+    # and then an example on how to target a certain file system.
+    #print(drives.pretty_print('all'))
+    #print(drives.pretty_print('ntfs'))
+
     if args.extract_hives:
-        if Scanner.check_for_windrives(raw_drives):
+        # this will be the attack workflow going forward.
+        # this will print out a table of drives that are numbered. The user
+        # will then select a target. then that target is fed to 
+        # drives.target_drive(target). this will return a single drive obj
+        # that is to be targeted. 
+        drives.pretty_print('ntfs')
+        target = input('please choose a drive to target\n'
+                'Please note drives start at 0 ')
+        target_drive = drives.target_drive(target)
+        
+        # still need to implement the implanter class that will accept the target
+        # drive as an arg, mount it, and then exploit it.
+        if drives.check_for_windrives(raw_drives):
             copy_registries()
-    if args.print_drives:
-        drives.pretty_print(conected_drives)
+
+    if args.print_drives is not None:
+        if len(args.print_drives) == 0:
+            drives.pretty_print('all')
+        elif len(args.print_drives) > 0:
+            if args.print_drives[0] == 'ntfs':
+                drives.pretty_print('ntfs')
+
     elif args.sticky_keyz:
         if Scanner.check_for_windrives(raw_drives):
             get_sticky_shell()

@@ -17,7 +17,10 @@ class Scanner:
     # Decode using utf-8 and then split on \n
     # Returns a list of drive paths and their file systems
 
-# this is like grab_drives()
+    # this is like grab_drives()
+    # Process output from blkid, store in self.drives on the scanner object
+    # self.drives is a list of objects created from Drive class
+
     def __init__(self):
         proc = subprocess.Popen('sudo blkid', stdout=subprocess.PIPE, 
                 shell=True)
@@ -42,6 +45,9 @@ class Scanner:
         self.drives = connected_drives 
     # extracts the drives with ntfs types
     # returns a list of windows drives
+    
+    def target_drive(self, target_drive):
+        return self.drives[int(target_drive)]
     
     
     def pretty_print(self, target):
@@ -71,21 +77,20 @@ class Scanner:
         drive_count = 0
         for drive in self.drives:
             if len(drive.get_source()) > 10:
-                drive_count += 1
                 print('\n     *\t\t {} {}      {}\t  '
                             '{}\t\t  *'.format(drive_count, drive.get_source(), 
                                 drive.get_fs(), drive.is_mounted()), end='')
-    
-            if len(drive.get_fs()) > 6 and len(drive.get_source()) < 10:
                 drive_count += 1
+            if len(drive.get_fs()) > 6 and len(drive.get_source()) < 10:
                 print('\n     *\t\t {} {}\t      {}\t  '
                             '{}\t\t  *'.format(drive_count, drive.get_source(), 
                                 drive.get_fs(), drive.is_mounted()), end='')
-            elif len(drive.get_fs()) == 4:
                 drive_count += 1
+            elif len(drive.get_fs()) == 4:
                 print('\n     *  {}\t      {}\t  '
                             '{}\t\t  *'.format(drive.get_source(), 
                                 drive.get_fs(), drive.is_mounted()), end='')
+                drive_count += 1
         print('\n     *******************************************************'
                     '***************     ',
                     end ='\n')
